@@ -2,8 +2,11 @@ version: '3.5'
 
 services:
   db:
-    hostname: db.errors-server.octobot.online
     image: mongo:5.0.2
+    environment:
+     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+     - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+     - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
     expose:
       - 27017
     restart: always
@@ -14,7 +17,7 @@ services:
       retries: 5
       start_period: 40s
     volumes:
-      - ./data/db:/data/db
+      - ./database:/data/db
 
   web:
     image: drakkarsoftware/errors.octobot.online
@@ -24,7 +27,6 @@ services:
       - MONGODB_URI=${MONGO_URI}
       - PORT=${PORT}
       - DAILY_REQUESTS_LIMIT=${DAILY_REQUESTS_LIMIT}
-    hostname: errors-server.octobot.online
     links:
       - db
     expose:
