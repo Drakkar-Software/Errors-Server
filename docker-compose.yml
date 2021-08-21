@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+  db:
+    hostname: db.errors-server.octobot.online
+    image: mongo
+    ports:
+      - 27017:27017
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    volumes:
+      - ./data/db:/data/db
+
+  web:
+    image: drakkarsoftware/errors-server.octobot.online
+    environment:
+      - DATABASE_HOST=db,
+      - DATABASE_PORT=27017,
+      - MONGODB_URI=mongodb://db:27017/errors
+      - PORT=8080
+      - DAILY_REQUESTS_LIMIT=5000
+    hostname: errors-server.octobot.online
+    links:
+      - db
+    ports:
+      - 8080:8080
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 8080 || exit 1"]
+      interval: 5m
+      start_period: 1m
