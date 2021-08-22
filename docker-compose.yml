@@ -26,7 +26,6 @@ services:
       - DATABASE_PORT=${DATABASE_PORT}
       - MONGODB_URI=${MONGO_URI}
       - PORT=${PORT}
-      - DAILY_REQUESTS_LIMIT=${DAILY_REQUESTS_LIMIT}
     links:
       - db
     expose:
