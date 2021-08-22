@@ -18,7 +18,7 @@ func PostError(c echo.Context) error {
 	_ = c.Bind(inputError)
 	id, err := dao.SaveError(inputError)
 	if err != nil {
-		log.Println(err, inputError.Timestamp)
+		log.Println(err, inputError.Error.Title, inputError.Error.Timestamp)
 		return c.JSON(http.StatusBadRequest, id)
 	}
 	return c.JSON(http.StatusOK, id)
