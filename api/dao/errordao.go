@@ -15,7 +15,7 @@ func SaveError(uploadedError *errorPackage.Error) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Println("Registered error with id:", newID.InsertedID)
+	log.Println("Registered new Error \"", uploadedError.Error.Title, "\" with id:", newID.InsertedID)
 	return newID.InsertedID, nil
 
 }
