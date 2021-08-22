@@ -10,7 +10,7 @@ import (
 // Init initializes the echo routes and registers the middleware
 func Init(e *echo.Echo) {
 	e.Pre(middleware.RemoveTrailingSlash())
-	// allow a max request size of 4000 characters
-	e.Use(middleware.BodyLimitWithConfig(middleware.BodyLimitConfig{Limit: "4K"}))
+	// allow a max request size of 17000 characters (allows ~100 depth stack traces)
+	e.Use(middleware.BodyLimitWithConfig(middleware.BodyLimitConfig{Limit: "17K"}))
 	route.Init(e)
 }
