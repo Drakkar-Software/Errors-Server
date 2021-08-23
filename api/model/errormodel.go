@@ -14,7 +14,7 @@ type ErrorData struct {
 	MetricsId  string   `json:"metricsid,omitempty" bson:"metricsId"`
 }
 
-// Error stores usage info about a specific error
+// Error stores an ErrorData and its id
 type Error struct {
 	ID    primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	Error ErrorData          `json:"_data,omitempty" bson:"_data"`

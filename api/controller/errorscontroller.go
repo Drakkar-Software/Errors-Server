@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/Drakkar-Software/Errors-Server/api/dao"
@@ -14,12 +15,19 @@ import (
 
 // PostError registers a bot as started (creates a new bot if necessary)
 func PostError(c echo.Context) error {
-	inputError := new(model.Error)
-	_ = c.Bind(inputError)
-	id, err := dao.SaveError(inputError)
-	if err != nil {
-		log.Println(err, inputError.Error.Title, inputError.Error.Timestamp)
-		return c.JSON(http.StatusBadRequest, id)
+	inputErrors := new([]model.Error)
+	_ = c.Bind(inputErrors)
+	ids := make([]string, len(*inputErrors), len(*inputErrors))
+	var err error = nil
+	for index, inputError := range *inputErrors {
+		id, err := dao.SaveError(inputError)
+		ids[index] = fmt.Sprintf("%s", id)
+		if err != nil {
+			log.Println(err, inputError.Error.Title, inputError.Error.Timestamp)
+		}
 	}
-	return c.JSON(http.StatusOK, id)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, ids)
+	}
+	return c.JSON(http.StatusOK, ids)
 }

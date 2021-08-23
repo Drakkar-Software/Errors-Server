@@ -10,7 +10,7 @@ import (
 
 
 // SaveError saves an error into the database
-func SaveError(uploadedError *errorPackage.Error) (interface{}, error) {
+func SaveError(uploadedError errorPackage.Error) (interface {}, error) {
 	newID, err := database.Database.Collection.InsertOne(context.Background(), uploadedError)
 	if err != nil {
 		return nil, err
