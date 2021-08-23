@@ -8,5 +8,5 @@ import (
 
 // Init registers the server routes
 func Init(e *echo.Echo) {
-	e.POST("/error", controller.PostError)
+	e.POST("/errors", controller.PostError)
 }

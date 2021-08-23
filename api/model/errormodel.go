@@ -7,11 +7,11 @@ import (
 
 // ErrorData stores usage info about a specific error
 type ErrorData struct {
-	Title      string   `json:"title,omitempty" bson:"title"`
-	Type       string   `json:"type,omitempty" bson:"type"`
-	StackTrace []string `json:"stacktrace,omitempty" bson:"stacktrace"`
-	Timestamp  float64  `json:"timestamp,omitempty" bson:"timestamp"`
-	MetricsId  string   `json:"metricsid,omitempty" bson:"metricsId"`
+	Title      string    `json:"title,omitempty" bson:"title"`
+	Type       string    `json:"type,omitempty" bson:"type"`
+	StackTrace []string  `json:"stacktrace,omitempty" bson:"stacktrace"`
+	Timestamps []float64 `json:"timestamps,omitempty" bson:"timestamps"`
+	MetricsId  string    `json:"metricsid,omitempty" bson:"metricsId"`
 }
 
 // Error stores an ErrorData and its id

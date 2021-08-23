@@ -15,15 +15,18 @@ import (
 
 // PostError registers a bot as started (creates a new bot if necessary)
 func PostError(c echo.Context) error {
-	inputErrors := new([]model.Error)
-	_ = c.Bind(inputErrors)
-	ids := make([]string, len(*inputErrors), len(*inputErrors))
+	inputErrorData := new([]model.ErrorData)
+	_ = c.Bind(inputErrorData)
+	ids := make([]string, len(*inputErrorData), len(*inputErrorData))
 	var err error = nil
-	for index, inputError := range *inputErrors {
+	for index, inputErrorDatum := range *inputErrorData {
+		inputError := model.Error{
+			Error: inputErrorDatum,
+		}
 		id, err := dao.SaveError(inputError)
 		ids[index] = fmt.Sprintf("%s", id)
 		if err != nil {
-			log.Println(err, inputError.Error.Title, inputError.Error.Timestamp)
+			log.Println(err, inputError.Error.Title, inputError.Error.Timestamps)
 		}
 	}
 	if err != nil {
