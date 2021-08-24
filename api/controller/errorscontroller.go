@@ -26,7 +26,7 @@ func PostError(c echo.Context) error {
 		id, err := dao.SaveError(inputError)
 		ids[index] = fmt.Sprintf("%s", id)
 		if err != nil {
-			log.Println(err, inputError.Error.Title, inputError.Error.Timestamps)
+			log.Println(err, inputError.Error.Title, inputError.Error.FirstTimestamp)
 		}
 	}
 	if err != nil {
